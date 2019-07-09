@@ -1,0 +1,19 @@
+{
+  "name": "sterlin",
+  "version": "1.0.0",
+  "description": "Rest API",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecodecafe/sterlin.git"
+  },
+  "author": "Daniel Barde <https://github.com/thecodecafe>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thecodecafe/sterlin/issues"
+  },
+  "homepage": "https://github.com/thecodecafe/sterlin#readme"
+}

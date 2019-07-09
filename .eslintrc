@@ -1,0 +1,64 @@
+{
+  "env": {
+      "node": true,
+      "commonjs": true,
+      "es6": true
+  },
+  "extends": "eslint:recommended",
+  "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+      "ecmaVersion": 2018
+  },
+  "rules": {
+      "prefer-const": ["error", {
+          "destructuring": "all",
+          "ignoreReadBeforeAssign": false
+      }],
+      "no-const-assign": "off",
+      "no-console": "off",
+      "camelcase": ["error", {"properties": "never"}],
+      "new-cap": ["error", {"capIsNew": false}],
+      "no-underscore-dangle": "error",
+      "no-this-before-super": "error",
+      "prefer-arrow-callback": "error",
+      "arrow-spacing": "error",
+      "arrow-parens": ["error", "as-needed"],
+      "arrow-body-style": "off",
+      "no-confusing-arrow": ["error", {"allowParens": false}],
+      "implicit-arrow-linebreak": ["error", "beside"],
+      "no-useless-constructor": "error",
+      "no-dupe-class-members": "error",
+      "dot-notation": "error",
+      "no-undef": "error",
+      "max-len": ["error", { "code": 80 }],
+      "operator-linebreak": ["error", "before"],
+      "no-unused-vars": "error",
+      "eqeqeq": ["error", "smart"],
+      "brace-style": "error",
+      "no-else-return": ["error", {"allowElseIf": false}],
+      "spaced-comment": ["error", "always"],
+      "indent": ["error", 2],
+      "space-infix-ops": ["error", {"int32Hint": false}],
+      "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+      "no-whitespace-before-property": "error",
+      "padded-blocks": ["error", "never"],
+      "no-multiple-empty-lines": ["error", {"max": 1}],
+      "space-in-parens": ["error", "never"],
+      "array-bracket-spacing": ["error", "never"],
+      "block-spacing": "error",
+      "comma-spacing": ["error", { "before": false, "after": true }],
+      "computed-property-spacing": ["error", "never"],
+      "func-call-spacing": ["error", "never"],
+      "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+      "comma-style": ["error", "last"],
+      "comma-dangle": ["error", "never"],
+      "semi": "error",
+      "no-new-wrappers": "error",
+      "radix": "error",
+      "id-length": ["error", { "min": 2, "exceptions": ["i", "j", "k"] }],
+      "max-lines-per-function": ["error", 25]
+  }
+}
