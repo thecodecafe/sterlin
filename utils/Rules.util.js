@@ -5,6 +5,13 @@ const isEmail = value => {
   return re.test(value);
 };
 
+const isURL = value => {
+  if (typeof value === 'string' && value.length < 1) return true;
+  // eslint-disable-next-line max-len
+  const re = /^(https?|ftp):\/\/(-\.)?([^\s/?.#-]+\.?)+(\/[^\s]*)?$/is;
+  return re.test(value);
+};
+
 const isNunber = value => {
   var re = /^[0-9\b]*(\.[0-9]*)?$/im;
   return re.test(value);
@@ -150,5 +157,6 @@ module.exports = {
   isEmail,
   isNunber,
   isMatch,
-  isNotMatch
+  isNotMatch,
+  isURL
 };
