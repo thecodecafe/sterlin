@@ -26,9 +26,9 @@ describe('<Team Model Validations>', () => {
   });
 
   it('should be valid if stadium name is passed', done => {
-    const team = new Team({stadiumName: 'Santiago Bernabéu Stadium'});
+    const team = new Team({stadium: 'Santiago Bernabéu Stadium'});
     team.validate(error => {
-      expect(error.errors.stadiumName).toBeUndefined();
+      expect(error.errors.stadium).toBeUndefined();
       done();
     })
   });

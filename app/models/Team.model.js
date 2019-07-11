@@ -13,7 +13,7 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     default: null
   },
-  stadiumName: {
+  stadium: {
     type: String,
     required: [true, 'The team\'s stadium name is required.']
   }
