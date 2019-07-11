@@ -10,7 +10,13 @@ module.exports = {
    * @param {String} str string to be hashed
    * @returns String
    */
-  hash: str => bcrypt.hashSync(str, 20),
+  hash: str => {
+    // throw an error if string is not passed
+    if(!str || typeof str !== 'string')
+      throw new Error('Please supply a string to be hashed.');
+    // encrypt string an return
+    return bcrypt.hashSync(str, 10);
+  },
 
   /**
    * Compares a string against an encrypted password.
