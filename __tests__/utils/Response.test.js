@@ -4,7 +4,7 @@ const {
   accessForbidden,
   unauthorized,
   badRequest,
-  validationError,
+  notProcessible,
   notFound,
   internalError
 } = require('../../utils/Response.util');
@@ -114,7 +114,7 @@ describe('<Response>', () => {
   });
 
   it('validation error response', (done) => {
-    const response = validationError(res, 'Invalid data sent!', {name: 'Please enter your name'});
+    const response = notProcessible(res, 'Invalid data sent!', {name: 'Please enter your name'});
     expect(response).toBeDefined();
     expect(response.status).toBe(422);
     expect(response.success).toBeFalsy();
@@ -126,7 +126,7 @@ describe('<Response>', () => {
   });
 
   it('validation error response', (done) => {
-    const response = validationError(res);
+    const response = notProcessible(res);
     expect(response).toBeDefined();
     expect(response.message).toBe('Invalid data sent!');
     expect(response.meta).toBeDefined();

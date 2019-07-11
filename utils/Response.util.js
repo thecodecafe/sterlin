@@ -108,7 +108,7 @@ module.exports = {
    * @param {Object} errors
    * @return Object
    */
-  validationError: (
+  notProcessible: (
     res,
     message = 'Invalid data sent!',
     errors = {}
