@@ -1,4 +1,4 @@
-const package = require('../package.json');
+const packageJSON = require('../package.json');
 
 module.exports = {
   /**
@@ -6,14 +6,14 @@ module.exports = {
    * Here we store our application version.
    * @var String
    */
-  appVersion: package.verssion,
+  appVersion: packageJSON.verssion,
 
   /**
    * Application Name
    * This is our application name.
    * @var String
    */
-  appName: package.name,
+  appName: packageJSON.name,
 
   /**
    * Application Key
