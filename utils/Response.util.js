@@ -65,7 +65,7 @@ module.exports = {
   accessForbidden: (
     res,
     message = 'Access forbidden!'
-  ) => res.status(403).data({
+  ) => res.status(403).json({
     success: false,
     message: message
   }),
@@ -80,7 +80,7 @@ module.exports = {
   unauthorized: (
     res,
     message = 'You are unauthorized!'
-  ) => res.status(401).data({
+  ) => res.status(401).json({
     success: false,
     message: message
   }),
@@ -95,7 +95,7 @@ module.exports = {
   badRequest: (
     res,
     message = 'Invalid request!'
-  ) => res.status(400).data({
+  ) => res.status(400).json({
     success: false,
     message: message
   }),
@@ -112,7 +112,7 @@ module.exports = {
     res,
     message = 'Invalid data sent!',
     errors = {}
-  ) => res.status(422).data({
+  ) => res.status(422).json({
     success: false,
     message: message,
     meta: { errors }
@@ -127,8 +127,8 @@ module.exports = {
    */
   notFound: (
     res,
-    message = 'Resource moved or deos not exist!'
-  ) => res.status(404).data({
+    message = 'Resource not found!'
+  ) => res.status(404).json({
     success: false,
     message: message
   }),
@@ -142,8 +142,8 @@ module.exports = {
    */
   internalError: (
     res,
-    message = 'Whoops something went wrong, we\'re on jumping on it right now!'
-  ) => res.status(500).data({
+    message = 'An internal error occured!'
+  ) => res.status(500).json({
     success: false,
     message: message
   })
