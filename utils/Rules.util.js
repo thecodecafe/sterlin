@@ -49,6 +49,10 @@ const isTrue = value => {
   return value === true || value === 1;
 };
 
+const isFalse = value => {
+  return value === false || value === 0;
+};
+
 const maxLength = length => value => {
   if (typeof value !== 'string') return false;
   return value && value.length <= length;
@@ -141,6 +145,8 @@ module.exports = {
   isRequired,
   isRequiredWith,
   isTrue,
+  isFalse,
+  isDate,
   isBeforeDate,
   isAfterDate,
   isBetweenDate,
