@@ -21,7 +21,7 @@
       "no-console": "off",
       "camelcase": ["error", {"properties": "never"}],
       "new-cap": ["error", {"capIsNew": false}],
-      "no-underscore-dangle": ["error", {"allow": ["_id"]}],
+      "no-underscore-dangle": ["error", {"allow": ["_id", "_doc"]}],
       "no-this-before-super": "error",
       "prefer-arrow-callback": "error",
       "arrow-spacing": "error",
