@@ -53,6 +53,6 @@ module.exports = {
   mongoURI: 'mongodb://'
     + process.env.DB_USER
     + ':' + process.env.DB_PASSWORD
-    + '@ds249127.mlab.com:49127/'
-    + process.env.DB_NAME
+    + process.env.DB_HOST
+    + '/' + process.env.DB_NAME
 };
