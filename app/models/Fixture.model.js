@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-const { isDate } = require('../../utils/Rules.util');
 
 // Shcema for Season model
 const FixtureSchema = new mongoose.Schema({
   season: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Season',
-    require: [true, 'The season is required.']
+    required: [true, 'The season is required.']
   },
   homeTeam: {
     type: mongoose.Schema.Types.ObjectId,
@@ -26,19 +25,11 @@ const FixtureSchema = new mongoose.Schema({
   },
   startsAt: {
     type: Date,
-    required: [true, 'The start date is required.'],
-    validate: {
-      validator: value => isDate(value),
-      msg: 'Starting time must be a date and time. E.g. yyyy-mm-ddThr:min'
-    }
+    required: [true, 'The start date is required.']
   },
   endsAt: {
     type: Date,
-    required: [true, 'Then end date is required.'],
-    validate: {
-      validator: value => isDate(value),
-      msg: 'Ending time must be a date and time. E.g. yyyy-mm-ddThr:min'
-    }
+    required: [true, 'The end date is required.']
   }
 });
 

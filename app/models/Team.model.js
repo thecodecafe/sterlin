@@ -24,7 +24,7 @@ TeamSchema.path('logo').validate(
   value => {
     return value ? isURL(value) : true;
   },
-  'Another team with the same name already exists.'
+  'Team logo must be a valid url.'
 );
 
 // export Season schema
