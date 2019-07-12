@@ -1,7 +1,7 @@
 const User = require('../../app/models/User.model');
 
 describe('<User Model Validations>', () => {
-  it('should be invalid if name is not passed', done => {
+  it('should fail if name is not provided', done => {
     const user = new User();
     user.validate(error => {
       expect(error.errors.name).toBeDefined();
@@ -9,7 +9,7 @@ describe('<User Model Validations>', () => {
     })
   });
 
-  it('should be invalid if email is not passed', done => {
+  it('should fail if email is not provided', done => {
     try {
       const user = new User();
       user.validate(error => {
@@ -21,7 +21,7 @@ describe('<User Model Validations>', () => {
     }
   });
 
-  it('should be invalid if incorrect email is given', done => {
+  it('should fail if incorrect email is given', done => {
     try{
       const user = new User({ email: 'bad emailaddress' });
       user.validate(error => {
@@ -45,11 +45,27 @@ describe('<User Model Validations>', () => {
     }
   });
 
-  it('should be invalid if password is not passed', (done) => {
+  it('should fail if password is not provided', (done) => {
     const user = new User();
     user.validate(error => {
       expect(error.errors.password).toBeDefined();
       done();
     });
+  });
+
+  it('should fail if no role is provided', done => {
+    const user = new User();
+    user.validate(error => {
+      expect(error.errors.role).toBeDefined();
+      done();
+    })
+  });
+
+  it('should fail if an invalid role is provided', done => {
+    const user = new User({role: 'role'});
+    user.validate(error => {
+      expect(error.errors.role).toBeDefined();
+      done();
+    })
   });
 });

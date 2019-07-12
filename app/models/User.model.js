@@ -27,9 +27,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, 'The user\'s password is required.']
   },
-  isAdmin: {
-    type: Boolean,
-    default: false
+  role: {
+    type: String,
+    required: [true, 'The user\'s role is required.'],
+    enum: ['admin', 'user']
   }
 });
 

@@ -34,8 +34,8 @@ describe('<AuthController.Login>', () => {
     expect(response.data.user.name).toBeDefined();
     expect(typeof(response.data.user.name)).toBe('string');
     expect(response.data.user.password).toBeUndefined();
-    expect(response.data.user.isAdmin).toBeDefined();
-    expect(typeof(response.data.user.isAdmin)).toBe('boolean');
+    expect(response.data.user.role).toBeDefined();
+    expect(typeof(response.data.user.role)).toBe('string');
   });
 
   it('should return a failure response', async () => {
@@ -121,8 +121,8 @@ describe('<AuthController.SignUp>', () => {
     expect(response.data.user.name).toBeDefined();
     expect(typeof(response.data.user.name)).toBe('string');
     expect(response.data.user.password).toBeUndefined();
-    expect(response.data.user.isAdmin).toBeDefined();
-    expect(typeof(response.data.user.isAdmin)).toBe('boolean');
+    expect(response.data.user.role).toBeDefined();
+    expect(typeof(response.data.user.role)).toBe('string');
   });
 
   it('should return bad request response', async () => {

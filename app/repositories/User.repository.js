@@ -2,10 +2,10 @@ const Model = require('../models/User.model');
 const { hash, hashCompare } = require('../../utils/Hashing.util');
 
 class UserRepository {
-  static async create({ name, email, password, isAdmin }) {
+  static async create({ name, email, password, role }) {
     try{
       // instantiate new user
-      let user = new Model({name, email, isAdmin, password: hash(password)});
+      let user = new Model({name, email, role, password: hash(password)});
       // save user
       user = await user.save();
       // resolve the promise

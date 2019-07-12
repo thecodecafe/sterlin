@@ -7,7 +7,7 @@ const userDoc = {
   name: 'Jon Doe',
   email: validLogin.body.email,
   password: hash(validLogin.body.password),
-  isAdmin: false
+  role: 'admin'
 };
 
 module.exports = {

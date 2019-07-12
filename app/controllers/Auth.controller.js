@@ -10,11 +10,11 @@ class AuthController {
       // find user with the given email
       const user = await Repo.findByEmailAndPassword(email, password);
       // get user name and ID from user object
-      const {name, _id, isAdmin} = user;
+      const {name, _id, role} = user;
       // return completed response with token
       return completed(res, 'Login complete!', {
         token: createToken({id: String(user._id)}),
-        user: { name, id: String(_id), email, isAdmin }
+        user: { name, id: String(_id), email, role }
       });
     }catch(error){
       // return failer response
@@ -25,11 +25,11 @@ class AuthController {
   static async signup(req, res){
     try{
       // create new user
-      const {_id, email, name, isAdmin} = await Repo.create(req.body);
+      const {_id, email, name, role} = await Repo.create(req.body);
       // return created response with token
       return created(res, 'Sign up complete!', {
         token: createToken({id: String(_id)}),
-        user: { id: String(_id), email, name, isAdmin}
+        user: { id: String(_id), email, name, role}
       });
     }catch(error){
       // return error response

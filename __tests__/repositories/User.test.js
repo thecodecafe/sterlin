@@ -67,6 +67,20 @@ describe('UserRepository.Create', () => {
     done();
   });
 
+  it('should fail if an invalid role is passed', async (done) => {
+    // return doc when save is called
+    mockingoose(User).toReturn(null, 'save');
+    try{
+      // create user 
+      await Repo.create({role: 'role'});
+    }catch(error){
+      // test response
+      expect(error.message).toMatch(/hash/);
+    }
+    // end test
+    done();
+  });
+
   it('should fail hashing when a password is not passed', async (done) => {
     // return doc when save is called
     mockingoose(User).toReturn(null, 'save');
