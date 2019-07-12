@@ -54,7 +54,6 @@ describe('<SeasonRepository.findById>', () => {
     expect(season.name).toBe(seasonDoc.name);
     expect(new Date(season.startDate).getTime()).toBe(new Date(seasonDoc.startDate).getTime());
     expect(new Date(season.endDate).getTime()).toBe(new Date(seasonDoc.endDate).getTime());
-    expect(season.creator).toBe(seasonDoc.creator);
     // end test
     done();
   });
@@ -103,7 +102,6 @@ describe('<SeasonRepository.create>', () => {
     expect(season.name).toBe(seasonDoc.name);
     expect(new Date(season.startDate).getTime()).toBe(new Date(seasonDoc.startDate).getTime());
     expect(new Date(season.endDate).getTime()).toBe(new Date(seasonDoc.endDate).getTime());
-    expect(season.creator).toBe(seasonDoc.creator);
     // end test
     done();
   });
@@ -159,7 +157,6 @@ describe('<SeasonRepository.update>', () => {
     expect(season.name).toBe('Season Two');
     expect(new Date(season.startDate).getTime()).toBe(new Date(seasonDoc.startDate).getTime());
     expect(new Date(season.endDate).getTime()).toBe(new Date(seasonDoc.endDate).getTime());
-    expect(season.creator).toBe(seasonDoc.creator);
     // end test
     done();
   });

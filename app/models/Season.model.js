@@ -15,10 +15,6 @@ const SeasonSchema = new mongoose.Schema({
   endDate: {
     type: Date,
     required: [true, 'The end date is required.']
-  },
-  creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
   }
 });
 

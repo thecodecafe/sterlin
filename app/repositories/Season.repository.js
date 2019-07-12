@@ -21,14 +21,13 @@ class SeasonRepository {
     return Promise.resolve(season);
   }
 
-  static async create({ name, startDate, endDate, creator }) {
+  static async create({ name, startDate, endDate }) {
     try{
       // instantiate new season
       let season = new Model({
         name,
         startDate,
-        endDate,
-        creator
+        endDate
       });
 
       // save season

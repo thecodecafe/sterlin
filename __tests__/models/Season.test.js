@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Season = require('../../app/models/Season.model');
 
 describe('<Season Model Validations>', () => {
@@ -62,14 +61,6 @@ describe('<Season Model Validations>', () => {
     const season = new Season({endDate: new Date().toUTCString()});
     season.validate(error => {
       expect(error.errors.endDate).toBeUndefined();
-      done();
-    })
-  });
-
-  it('should be valid if creator is passed', done => {
-    const season = new Season({creator: mongoose.Types.ObjectId()});
-    season.validate(error => {
-      expect(error.errors.creator).toBeUndefined();
       done();
     })
   });

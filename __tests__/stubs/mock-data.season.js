@@ -6,7 +6,6 @@ module.exports = {
     _id: new mongoose.Types.ObjectId(),
     name: 'Season One',
     startDate: new Date().toUTCString(),
-    endDate: new Date().toUTCString(),
-    creator: new mongoose.Types.ObjectId()
+    endDate: new Date().toUTCString()
   }
 };
