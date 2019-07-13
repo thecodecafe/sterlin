@@ -1,9 +1,8 @@
 const passport = require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const db = require('../models');
-const jwtConfig = require('../configs/jwt');
-const { User } = db;
+const User = require('../../app/models/User.model');
+const jwtConfig = require('../../configs/jwt');
 
 /**
  * Here we use passports' jwt strategy to
@@ -17,7 +16,7 @@ passport.use(new JWTStrategy(
   },
   async (payload, done) => {
     // fund user bearing the user id on the payload
-    const user = await User.findOne({ where: { id: payload.user_id } });
+    const user = await User.findOne({ id: payload.user_id });
 
     // check if the user does not exist
     if (!user) return done(new Error('invalid token'), false);
