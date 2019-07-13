@@ -17,6 +17,8 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: [true, 'The team\'s stadium name is required.']
   }
+}, {
+  timestamps: true
 });
 
 // Ensure logo is url when passed.

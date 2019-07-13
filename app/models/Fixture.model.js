@@ -31,6 +31,8 @@ const FixtureSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'The end date is required.']
   }
+}, {
+  timestamps: true
 });
 
 // export Season schema

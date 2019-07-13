@@ -32,6 +32,8 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'The user\'s role is required.'],
     enum: ['admin', 'user']
   }
+}, {
+  timestamps: true
 });
 
 // export user schema
