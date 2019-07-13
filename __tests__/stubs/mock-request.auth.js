@@ -39,6 +39,7 @@ module.exports = {
       name: 'Bojack Horseman',
       email: 'jondoe@gmail.com',
       password: 'password',
+      passwordConfirmation: 'password',
       role: 'admin'
     }
   },
@@ -47,7 +48,8 @@ module.exports = {
     body:{
       name: 'Bojack Horseman',
       email: 'invalid email',
-      password: 'password'
+      password: 'password',
+      passwordConfirmation: 'password2',
     }
   },
 };

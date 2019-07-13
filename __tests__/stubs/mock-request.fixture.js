@@ -50,7 +50,7 @@ module.exports = {
     body: {
       homeTeam: newfixtureDoc.homeTeam,
       awayTeam: newfixtureDoc.awayTeam,
-      startsAt: newfixtureDoc.startsAt
+      startsAt: 'invalid date'
     }
   },
 
@@ -58,12 +58,18 @@ module.exports = {
     params: { id: fixtureDoc._id },
     body: {
       startsAt: newfixtureDoc.startsAt,
+      season: newfixtureDoc.season
     }
   },
 
   inValidFixtureUpdate: {
     params: { id: fixtureDoc._id },
-    body: {startsAt: 'invalid date'}
+    body: {
+      startsAt: 'invalid date',
+      season: newfixtureDoc.season,
+      awayTeam: newfixtureDoc.awayTeam,
+      homeTeam: newfixtureDoc.awayTeam
+    }
   },
 
   validFixtureDelete: {

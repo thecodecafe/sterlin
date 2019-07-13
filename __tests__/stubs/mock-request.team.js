@@ -21,14 +21,14 @@ module.exports = {
   validTeamCreate: {
     body: {
       name: 'Team One',
-      stadium: 'Stadium'
+      stadium: 'Stadium',
+      logo: 'http://google.com'
     }
   },
 
   inValidTeamCreate: {
     body: {
       name: 'Team One',
-      stadium: 'Stadium',
       logo: invalidLogo
     }
   },
@@ -37,12 +37,17 @@ module.exports = {
     params: { id: teamDoc._id },
     body: {
       name: 'Team One',
+      stadium: 'Stadium',
+      logo: 'http://google.com'
     }
   },
 
   inValidTeamUpdate: {
     params: { id: teamDoc._id },
-    body: {logo: invalidLogo}
+    body: {
+      name: 'Team One',
+      logo: invalidLogo
+    }
   },
 
   validTeamDelete: {

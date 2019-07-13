@@ -21,15 +21,16 @@ module.exports = {
    validSeasonCreate: {
     body: {
      name: 'Season One',
-     startDate: new Date().toUTCString(),
-     endDate: new Date().toUTCString(),
+     startDate: new Date().toISOString(),
+     endDate: new Date().toISOString(),
     }
    },
 
    inValidSeasonCreate: {
     body: {
      name: 'Season One',
-     startDate: new Date().toUTCString()
+     startDate: 'invalid date',
+     endDate: 'invalid date',
     }
    },
 
@@ -37,6 +38,8 @@ module.exports = {
     params: {id: seasonDoc._id},
     body: {
      name: 'Season One',
+     startDate: new Date().toISOString(),
+     endDate: new Date().toISOString(),
     }
    },
 
@@ -44,7 +47,8 @@ module.exports = {
     params: {id: seasonDoc._id},
     body: {
      name: 'Season One',
-     startDate: 'invalid date'
+     startDate: 'invalid date',
+     endDate: 'invalid date',
     }
    },
 
