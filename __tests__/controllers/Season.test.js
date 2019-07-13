@@ -64,7 +64,7 @@ describe('<SeasonController.List>', () => {
   });
 });
 
-describe('<Searchcontroller.Find>', () => {
+describe('<SeasonController.Find>', () => {
   it('should return a season', async () => {
     mockingoose(Season).toReturn(seasonDoc, 'findOne');
     // create mock response
@@ -127,7 +127,7 @@ describe('<Searchcontroller.Find>', () => {
   });
 });
 
-describe('<Searchcontroller.Create>', () => {
+describe('<SeasonController.Create>', () => {
   it('should return a created season', async () => {
     mockingoose(Season).toReturn(seasonDoc, 'save');
     // create mock response
@@ -169,7 +169,7 @@ describe('<Searchcontroller.Create>', () => {
   });
 });
 
-describe('<Searchcontroller.Update>', () => {
+describe('<SeasonController.Update>', () => {
   it('should return an updated season', async () => {
     mockingoose(Season).toReturn(seasonDoc, 'findOne');
     mockingoose(Season).toReturn(seasonDoc, 'save');
@@ -204,8 +204,7 @@ describe('<Searchcontroller.Update>', () => {
     const statusCode = response._getStatusCode();
     // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -213,7 +212,7 @@ describe('<Searchcontroller.Update>', () => {
   });
 });
 
-describe('<Searchcontroller.Delete>', () => {
+describe('<SeasonController.Delete>', () => {
   it('should return an updated season', async () => {
     mockingoose(Season).toReturn(seasonDoc, 'findOne');
     // create mock response
