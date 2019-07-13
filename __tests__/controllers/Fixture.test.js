@@ -2,7 +2,7 @@ const mockingoose = require('mockingoose').default;
 const Controller  = require('../../app/controllers/Fixtures.controller');
 const Fixture = require('../../app/models/Fixture.model');
 const Team = require('../../app/models/Team.model');
-const mockResponse = require('../stubs/mock.response');
+const httpMocks = require('node-mocks-http');
 const { newfixtureDoc } = require('../stubs/mock-data.fixture');
 const { teamDoc } = require('../stubs/mock-data.team');
 const { 
@@ -27,10 +27,17 @@ describe('<FixtureController.List>', () => {
 
   it('should return a list of fixtures', async () => {
     mockingoose(Fixture).toReturn([newfixtureDoc], 'find');
-    const result = await Controller.list(fixtureList, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(fixtureList, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -48,10 +55,17 @@ describe('<FixtureController.List>', () => {
   it('should return a list of fixtures if searched', async () => {
     mockingoose(Fixture).toReturn([newfixtureDoc], 'find');
     mockingoose(Team).toReturn([teamDoc], 'find');
-    const result = await Controller.list(fixtureListSearch, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(fixtureListSearch, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -68,10 +82,17 @@ describe('<FixtureController.List>', () => {
 
   it('should return a list of fixtures filtered by date', async () => {
     mockingoose(Fixture).toReturn([newfixtureDoc], 'find');
-    const result = await Controller.list(fixtureListDateFilter, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(fixtureListDateFilter, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -88,10 +109,17 @@ describe('<FixtureController.List>', () => {
 
   it('should return a list of pending fixtures', async () => {
     mockingoose(Fixture).toReturn([newfixtureDoc], 'find');
-    const result = await Controller.list(fixtureListPending, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(fixtureListPending, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -108,10 +136,17 @@ describe('<FixtureController.List>', () => {
 
   it('should return a list of ongoing fixtures', async () => {
     mockingoose(Fixture).toReturn([newfixtureDoc], 'find');
-    const result = await Controller.list(fixtureListOngoing, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(fixtureListOngoing, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -128,10 +163,17 @@ describe('<FixtureController.List>', () => {
 
   it('should return a list of completed fixtures', async () => {
     mockingoose(Fixture).toReturn([newfixtureDoc], 'find');
-    const result = await Controller.list(fixtureListCompleted, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(fixtureListCompleted, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -152,10 +194,17 @@ describe('<Searchcontroller.Find>', () => {
 
   it('should return a fixture', async () => {
     mockingoose(Fixture).toReturn(newfixtureDoc, 'findOne');
-    const result = await Controller.find(validFixtureFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(validFixtureFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -171,10 +220,17 @@ describe('<Searchcontroller.Find>', () => {
 
   it('fail to return fixture', async () => {
     mockingoose(Fixture).toReturn(null, 'findOne');
-    const result = await Controller.find(validFixtureFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(validFixtureFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(404);
+    expect(statusCode).toBe(404);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -183,10 +239,17 @@ describe('<Searchcontroller.Find>', () => {
   });
 
   it('fail to return fixture', async () => {
-    const result = await Controller.find(inValidFixtureFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(inValidFixtureFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(404);
+    expect(statusCode).toBe(404);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -200,10 +263,17 @@ describe('<Searchcontroller.Create>', () => {
 
   it('should return a created fixture', async () => {
     mockingoose(Fixture).toReturn(newfixtureDoc, 'save');
-    const result = await Controller.create(validFixtureCreate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.create(validFixtureCreate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(201);
+    expect(statusCode).toBe(201);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -218,10 +288,17 @@ describe('<Searchcontroller.Create>', () => {
   });
 
   it('fail to return fixture', async () => {
-    const result = await Controller.create(inValidFixtureCreate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.create(inValidFixtureCreate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -235,10 +312,17 @@ describe('<Searchcontroller.Update>', () => {
   it('should return an updated fixture', async () => {
     mockingoose(Fixture).toReturn(newfixtureDoc, 'findOne');
     mockingoose(Fixture).toReturn(newfixtureDoc, 'save');
-    const result = await Controller.update(validFixtureUpdate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.update(validFixtureUpdate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -253,10 +337,17 @@ describe('<Searchcontroller.Update>', () => {
   });
 
   it('fail to return fixture', async () => {
-    const result = await Controller.update(inValidFixtureUpdate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.update(inValidFixtureUpdate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -269,10 +360,17 @@ describe('<Searchcontroller.Delete>', () => {
 
   it('should return an updated fixture', async () => {
     mockingoose(Fixture).toReturn(newfixtureDoc, 'findOne');
-    const result = await Controller.delete(validFixtureDelete, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.delete(validFixtureDelete, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeUndefined();
@@ -280,10 +378,17 @@ describe('<Searchcontroller.Delete>', () => {
   });
 
   it('fail to return fixture', async () => {
-    const result = await Controller.delete(inValidFixtureDelete, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.delete(inValidFixtureDelete, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();

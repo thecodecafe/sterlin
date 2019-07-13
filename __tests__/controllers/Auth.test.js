@@ -10,131 +10,187 @@ const {
   invalidSignUp
 } = require('../stubs/mock-request.auth');
 const { userDoc } = require('../stubs/mock-date.user');
-const mockResponse = require('../stubs/mock.response');
 const Controller = require('../../app/controllers/Auth.controller');
 const User = require('../../app/models/User.model');
+const httpMocks = require('node-mocks-http');
 
 describe('<AuthController.Login>', () => {
   it('should return a success response', async () => {
     mockingoose(User).toReturn(userDoc, 'findOne');
-    const response = await Controller.login(validLogin, mockResponse());
-    expect(response).toBeDefined();
-    expect(response.status).toBeDefined();
-    expect(response.status).toBe(200);
-    expect(response.success).toBeDefined();
-    expect(response.success).toBeTruthy();
-    expect(response.data).toBeDefined();
-    expect(response.data.token).toBeDefined();
-    expect(typeof(response.data.token)).toBe('string');
-    expect(response.data.user).toBeDefined();
-    expect(response.data.user.id).toBeDefined();
-    expect(typeof(response.data.user.id)).toBe('string');
-    expect(response.data.user.email).toBeDefined();
-    expect(typeof(response.data.user.email)).toBe('string');
-    expect(response.data.user.name).toBeDefined();
-    expect(typeof(response.data.user.name)).toBe('string');
-    expect(response.data.user.password).toBeUndefined();
-    expect(response.data.user.role).toBeDefined();
-    expect(typeof(response.data.user.role)).toBe('string');
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.login(validLogin, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
+    expect(result).toBeDefined();
+    expect(statusCode).toBe(200);
+    expect(result.success).toBeDefined();
+    expect(result.success).toBeTruthy();
+    expect(result.data).toBeDefined();
+    expect(result.data.token).toBeDefined();
+    expect(typeof(result.data.token)).toBe('string');
+    expect(result.data.user).toBeDefined();
+    expect(result.data.user.id).toBeDefined();
+    expect(typeof(result.data.user.id)).toBe('string');
+    expect(result.data.user.email).toBeDefined();
+    expect(typeof(result.data.user.email)).toBe('string');
+    expect(result.data.user.name).toBeDefined();
+    expect(typeof(result.data.user.name)).toBe('string');
+    expect(result.data.user.password).toBeUndefined();
+    expect(result.data.user.role).toBeDefined();
+    expect(typeof(result.data.user.role)).toBe('string');
   });
 
   it('should return a failure response', async () => {
     mockingoose(User).toReturn(null, 'findOne');
-    const response = await Controller.login(invalidLoginWorngPassword, mockResponse());
-    expect(response).toBeDefined();
-    expect(response.status).toBeDefined();
-    expect(response.status).toBe(400);
-    expect(response.success).toBeDefined();
-    expect(response.success).toBeFalsy();
-    expect(response.data).toBeUndefined();
-    expect(response.message).toBeDefined();
-    expect(response.message).toMatch(/credentials/);
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.login(invalidLoginWorngPassword, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
+    expect(result).toBeDefined();
+    expect(statusCode).toBe(400);
+    expect(result.success).toBeDefined();
+    expect(result.success).toBeFalsy();
+    expect(result.data).toBeUndefined();
+    expect(result.message).toBeDefined();
+    expect(result.message).toMatch(/credentials/);
   });
 
   it('should return a failure response', async () => {
     mockingoose(User).toReturn(userDoc, 'findOne');
-    const response = await Controller.login(invalidLoginWorngPassword, mockResponse());
-    expect(response).toBeDefined();
-    expect(response.status).toBeDefined();
-    expect(response.status).toBe(400);
-    expect(response.success).toBeDefined();
-    expect(response.success).toBeFalsy();
-    expect(response.data).toBeUndefined();
-    expect(response.message).toBeDefined();
-    expect(response.message).toMatch(/credentials/);
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.login(invalidLoginWorngPassword, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
+    expect(result).toBeDefined();
+    expect(statusCode).toBe(400);
+    expect(result.success).toBeDefined();
+    expect(result.success).toBeFalsy();
+    expect(result.data).toBeUndefined();
+    expect(result.message).toBeDefined();
+    expect(result.message).toMatch(/credentials/);
   });
 
   it('should return a failure response', async () => {
-    const response = await Controller.login(invalidLogin, mockResponse());
-    expect(response).toBeDefined();
-    expect(response.status).toBeDefined();
-    expect(response.status).toBe(400);
-    expect(response.success).toBeDefined();
-    expect(response.success).toBeFalsy();
-    expect(response.data).toBeUndefined();
-    expect(response.message).toBeDefined();
-    expect(response.message).toMatch(/invalid/i);
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.login(invalidLogin, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
+    expect(result).toBeDefined();
+    expect(statusCode).toBe(400);
+    expect(result.success).toBeDefined();
+    expect(result.success).toBeFalsy();
+    expect(result.data).toBeUndefined();
+    expect(result.message).toBeDefined();
+    expect(result.message).toMatch(/invalid/i);
   });
 
   it('should return a failure response', async () => {
-    const response = await Controller.login(invalidLoginEmail, mockResponse());
-    expect(response).toBeDefined();
-    expect(response.status).toBeDefined();
-    expect(response.status).toBe(400);
-    expect(response.success).toBeDefined();
-    expect(response.success).toBeFalsy();
-    expect(response.data).toBeUndefined();
-    expect(response.message).toBeDefined();
-    expect(response.message).toMatch(/invalid/i);
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.login(invalidLoginEmail, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
+    expect(result).toBeDefined();
+    expect(statusCode).toBe(400);
+    expect(result.success).toBeDefined();
+    expect(result.success).toBeFalsy();
+    expect(result.data).toBeUndefined();
+    expect(result.message).toBeDefined();
+    expect(result.message).toMatch(/invalid/i);
   });
 
   it('should return a failure response', async () => {
-    const response = await Controller.login(invalidLoginPassword, mockResponse());
-    expect(response).toBeDefined();
-    expect(response.status).toBeDefined();
-    expect(response.status).toBe(400);
-    expect(response.success).toBeDefined();
-    expect(response.success).toBeFalsy();
-    expect(response.data).toBeUndefined();
-    expect(response.message).toBeDefined();
-    expect(response.message).toMatch(/invalid/i);
+     // create mock response
+     const response = httpMocks.createResponse();
+     // make request
+     await Controller.login(invalidLoginPassword, response);
+     // get response JSON data
+     const result = response._getJSONData();
+     // get the status code
+     const statusCode = response._getStatusCode();
+     // check response
+    expect(result).toBeDefined();
+    expect(statusCode).toBe(400);
+    expect(result.success).toBeDefined();
+    expect(result.success).toBeFalsy();
+    expect(result.data).toBeUndefined();
+    expect(result.message).toBeDefined();
+    expect(result.message).toMatch(/invalid/i);
   });
 });
 
 describe('<AuthController.SignUp>', () => {
   it('should return a success response', async () => {
     mockingoose(User).toReturn(userDoc, 'save');
-    const response = await Controller.signup(validSignUp, mockResponse());
-    expect(response).toBeDefined();
-    expect(response.status).toBeDefined();
-    expect(response.status).toBe(201);
-    expect(response.success).toBeDefined();
-    expect(response.success).toBeTruthy();
-    expect(response.data).toBeDefined();
-    expect(response.data.token).toBeDefined();
-    expect(typeof(response.data.token)).toBe('string');
-    expect(response.data.user).toBeDefined();
-    expect(response.data.user.id).toBeDefined();
-    expect(typeof(response.data.user.id)).toBe('string');
-    expect(response.data.user.email).toBeDefined();
-    expect(typeof(response.data.user.email)).toBe('string');
-    expect(response.data.user.name).toBeDefined();
-    expect(typeof(response.data.user.name)).toBe('string');
-    expect(response.data.user.password).toBeUndefined();
-    expect(response.data.user.role).toBeDefined();
-    expect(typeof(response.data.user.role)).toBe('string');
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.signup(validSignUp, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
+    expect(result).toBeDefined();
+    expect(statusCode).toBe(201);
+    expect(result.success).toBeDefined();
+    expect(result.success).toBeTruthy();
+    expect(result.data).toBeDefined();
+    expect(result.data.token).toBeDefined();
+    expect(typeof(result.data.token)).toBe('string');
+    expect(result.data.user).toBeDefined();
+    expect(result.data.user.id).toBeDefined();
+    expect(typeof(result.data.user.id)).toBe('string');
+    expect(result.data.user.email).toBeDefined();
+    expect(typeof(result.data.user.email)).toBe('string');
+    expect(result.data.user.name).toBeDefined();
+    expect(typeof(result.data.user.name)).toBe('string');
+    expect(result.data.user.password).toBeUndefined();
+    expect(result.data.user.role).toBeDefined();
+    expect(typeof(result.data.user.role)).toBe('string');
   });
 
   it('should return bad request response', async () => {
     mockingoose(User).toReturn(userDoc, 'save');
-    const response = await Controller.signup(invalidSignUp, mockResponse());
-    expect(response).toBeDefined();
-    expect(response.status).toBeDefined();
-    expect(response.status).toBe(400);
-    expect(response.success).toBeDefined();
-    expect(response.success).toBeFalsy();
-    expect(response.data).toBeUndefined();
-    expect(response.message).toBeDefined();;
-    expect(response.message).toMatch(/email/i);;
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.signup(invalidSignUp, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
+    expect(result).toBeDefined();
+    expect(statusCode).toBe(400);
+    expect(result.success).toBeDefined();
+    expect(result.success).toBeFalsy();
+    expect(result.data).toBeUndefined();
+    expect(result.message).toBeDefined();;
+    expect(result.message).toMatch(/email/i);;
   });
 });

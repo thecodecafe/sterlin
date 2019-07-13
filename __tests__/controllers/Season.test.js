@@ -1,7 +1,7 @@
 const mockingoose = require('mockingoose').default;
 const Controller  = require('../../app/controllers/Seasons.controller');
 const Season = require('../../app/models/Season.model');
-const mockResponse = require('../stubs/mock.response');
+const httpMocks = require('node-mocks-http');
 const { seasonDoc } = require('../stubs/mock-data.season');
 const { 
   validSeasonList,
@@ -19,10 +19,17 @@ const {
 describe('<SeasonController.List>', () => {
   it('should return a list of seasons', async () => {
     mockingoose(Season).toReturn([seasonDoc], 'find');
-    const result = await Controller.list(validSeasonList, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(validSeasonList, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -35,10 +42,17 @@ describe('<SeasonController.List>', () => {
 
   it('should return a list of seasons if searched', async () => {
     mockingoose(Season).toReturn([seasonDoc], 'find');
-    const result = await Controller.list(validSeasonListSearch, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(validSeasonListSearch, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -53,10 +67,17 @@ describe('<SeasonController.List>', () => {
 describe('<Searchcontroller.Find>', () => {
   it('should return a season', async () => {
     mockingoose(Season).toReturn(seasonDoc, 'findOne');
-    const result = await Controller.find(validSeasonFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(validSeasonFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -68,10 +89,17 @@ describe('<Searchcontroller.Find>', () => {
 
   it('fail to return season', async () => {
     mockingoose(Season).toReturn(null, 'findOne');
-    const result = await Controller.find(validSeasonFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(validSeasonFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(404);
+    expect(statusCode).toBe(404);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -80,10 +108,17 @@ describe('<Searchcontroller.Find>', () => {
   });
 
   it('fail to return season', async () => {
-    const result = await Controller.find(inValidSeasonFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(inValidSeasonFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(404);
+    expect(statusCode).toBe(404);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -95,10 +130,17 @@ describe('<Searchcontroller.Find>', () => {
 describe('<Searchcontroller.Create>', () => {
   it('should return a created season', async () => {
     mockingoose(Season).toReturn(seasonDoc, 'save');
-    const result = await Controller.create(validSeasonCreate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.create(validSeasonCreate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(201);
+    expect(statusCode).toBe(201);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -109,10 +151,17 @@ describe('<Searchcontroller.Create>', () => {
   });
 
   it('fail to return season', async () => {
-    const result = await Controller.create(inValidSeasonCreate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.create(inValidSeasonCreate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -124,10 +173,17 @@ describe('<Searchcontroller.Update>', () => {
   it('should return an updated season', async () => {
     mockingoose(Season).toReturn(seasonDoc, 'findOne');
     mockingoose(Season).toReturn(seasonDoc, 'save');
-    const result = await Controller.update(validSeasonUpdate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.update(validSeasonUpdate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -138,7 +194,15 @@ describe('<Searchcontroller.Update>', () => {
   });
 
   it('fail to return season', async () => {
-    const result = await Controller.update(inValidSeasonUpdate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.update(inValidSeasonUpdate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
     expect(result.status).toBeDefined();
     expect(result.status).toBe(400);
@@ -152,10 +216,17 @@ describe('<Searchcontroller.Update>', () => {
 describe('<Searchcontroller.Delete>', () => {
   it('should return an updated season', async () => {
     mockingoose(Season).toReturn(seasonDoc, 'findOne');
-    const result = await Controller.delete(validSeasonDelete, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.delete(validSeasonDelete, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeUndefined();
@@ -163,10 +234,17 @@ describe('<Searchcontroller.Delete>', () => {
   });
 
   it('fail to return season', async () => {
-    const result = await Controller.delete(inValidSeasonDelete, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.delete(inValidSeasonDelete, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();

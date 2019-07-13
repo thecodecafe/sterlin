@@ -1,7 +1,7 @@
 const mockingoose = require('mockingoose').default;
 const Controller  = require('../../app/controllers/Teams.controller');
 const Team = require('../../app/models/Team.model');
-const mockResponse = require('../stubs/mock.response');
+const httpMocks = require('node-mocks-http');
 const { teamDoc } = require('../stubs/mock-data.team');
 const { 
   validTeamList,
@@ -19,10 +19,17 @@ const {
 describe('<TeamController.List>', () => {
   it('should return a list of teams', async () => {
     mockingoose(Team).toReturn([teamDoc], 'find');
-    const result = await Controller.list(validTeamList, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(validTeamList, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -35,10 +42,17 @@ describe('<TeamController.List>', () => {
 
   it('should return a list of teams if searched', async () => {
     mockingoose(Team).toReturn([teamDoc], 'find');
-    const result = await Controller.list(validTeamListSearch, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.list(validTeamListSearch, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -53,10 +67,17 @@ describe('<TeamController.List>', () => {
 describe('<Searchcontroller.Find>', () => {
   it('should return a team', async () => {
     mockingoose(Team).toReturn(teamDoc, 'findOne');
-    const result = await Controller.find(validTeamFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(validTeamFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -68,10 +89,17 @@ describe('<Searchcontroller.Find>', () => {
 
   it('fail to return team', async () => {
     mockingoose(Team).toReturn(null, 'findOne');
-    const result = await Controller.find(validTeamFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(validTeamFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(404);
+    expect(statusCode).toBe(404);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -80,10 +108,17 @@ describe('<Searchcontroller.Find>', () => {
   });
 
   it('fail to return team', async () => {
-    const result = await Controller.find(inValidTeamFind, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.find(inValidTeamFind, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(404);
+    expect(statusCode).toBe(404);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -95,10 +130,17 @@ describe('<Searchcontroller.Find>', () => {
 describe('<Searchcontroller.Create>', () => {
   it('should return a created team', async () => {
     mockingoose(Team).toReturn(teamDoc, 'save');
-    const result = await Controller.create(validTeamCreate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.create(validTeamCreate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(201);
+    expect(statusCode).toBe(201);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -109,10 +151,17 @@ describe('<Searchcontroller.Create>', () => {
   });
 
   it('fail to return team', async () => {
-    const result = await Controller.create(inValidTeamCreate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.create(inValidTeamCreate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -124,10 +173,17 @@ describe('<Searchcontroller.Update>', () => {
   it('should return an updated team', async () => {
     mockingoose(Team).toReturn(teamDoc, 'findOne');
     mockingoose(Team).toReturn(teamDoc, 'save');
-    const result = await Controller.update(validTeamUpdate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.update(validTeamUpdate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeDefined();
@@ -138,10 +194,17 @@ describe('<Searchcontroller.Update>', () => {
   });
 
   it('fail to return team', async () => {
-    const result = await Controller.update(inValidTeamUpdate, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.update(inValidTeamUpdate, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
@@ -152,10 +215,17 @@ describe('<Searchcontroller.Update>', () => {
 describe('<Searchcontroller.Delete>', () => {
   it('should return an updated team', async () => {
     mockingoose(Team).toReturn(teamDoc, 'findOne');
-    const result = await Controller.delete(validTeamDelete, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.delete(validTeamDelete, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(200);
+    expect(statusCode).toBe(200);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(true);
     expect(result.data).toBeUndefined();
@@ -163,10 +233,17 @@ describe('<Searchcontroller.Delete>', () => {
   });
 
   it('fail to return team', async () => {
-    const result = await Controller.delete(inValidTeamDelete, mockResponse());
+    // create mock response
+    const response = httpMocks.createResponse();
+    // make request
+    await Controller.delete(inValidTeamDelete, response);
+    // get response JSON data
+    const result = response._getJSONData();
+    // get the status code
+    const statusCode = response._getStatusCode();
+    // check response
     expect(result).toBeDefined();
-    expect(result.status).toBeDefined();
-    expect(result.status).toBe(400);
+    expect(statusCode).toBe(400);
     expect(result.success).toBeDefined();
     expect(result.success).toBe(false);
     expect(result.data).toBeUndefined();
