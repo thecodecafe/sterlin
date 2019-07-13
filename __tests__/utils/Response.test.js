@@ -151,6 +151,8 @@ describe('<Response>', () => {
     notProcessible(response, 'Invalid data sent!', {name: 'Please enter your name'});
     // get response JSON data
     const result = response._getJSONData();
+    // get status code
+    const statusCode = response._getStatusCode();
     // check response
     expect(result).toBeDefined();
     expect(statusCode).toBe(422);
