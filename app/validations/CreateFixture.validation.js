@@ -23,7 +23,7 @@ module.exports = [
     .withMessage('The home team is required.')
     .custom(async value => {
       const count = await TeamModel.count({ _id: value });
-      if (count > 0) throw new Error('The home team is invalid.');
+      if (count < 1) throw new Error('The home team is invalid.');
       return true;
     })
     .custom(async (value, {req}) => {
@@ -37,7 +37,7 @@ module.exports = [
     .withMessage('The away team is required.')
     .custom(async value => {
       const count = await TeamModel.count({ _id: value });
-      if (count > 0) throw new Error('The away team is invalid.');
+      if (count < 1) throw new Error('The away team is invalid.');
       return true;
     })
     .custom(async (value, {req}) => {
