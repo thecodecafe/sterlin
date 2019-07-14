@@ -3,4 +3,4 @@
 /.env/**
 /coverage/**
 .eslintrc
-/test/**
+/__tests__/**

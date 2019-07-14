@@ -4,7 +4,8 @@
   "description": "Rest API",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "node_modules/.bin/nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,29 @@
   "bugs": {
     "url": "https://github.com/thecodecafe/sterlin/issues"
   },
-  "homepage": "https://github.com/thecodecafe/sterlin#readme"
+  "homepage": "https://github.com/thecodecafe/sterlin#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mockingoose": "^2.13.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-jest": "^24.8.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.0.1",
+    "jest": "^24.8.0",
+    "mongoose": "^5.6.4",
+    "node-mocks-http": "^1.7.6",
+    "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2"
+  }
 }
