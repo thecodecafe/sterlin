@@ -1,30 +1,30 @@
 const { fixtureDoc, newfixtureDoc } = require('./mock-data.fixture');
 module.exports = {
   fixtureList: {
-    body: {}
+    query: {}
   },
 
   fixtureListSearch: {
-    body: { search: '' }
+    query: { search: '' }
   },
 
   fixtureListDateFilter: {
-    body: {
+    query: {
       from: new Date().toUTCString(),
       to: new Date().toUTCString()
     }
   },
 
   fixtureListPending: {
-    body: { status: 'pending' }
+    query: { status: 'pending' }
   },
 
   fixtureListOngoing: {
-    body: { status: 'ongoing' }
+    query: { status: 'ongoing' }
   },
 
   fixtureListCompleted: {
-    body: { status: 'completed' }
+    query: { status: 'completed' }
   },
 
   validFixtureFind: {

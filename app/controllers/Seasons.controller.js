@@ -9,11 +9,11 @@ const {
 class SeasonsController {
   static async list(req, res) {
     // get allowed params
-    const { search } = req.body;
+    const { search } = req.query;
     // retrieve collection of seasons
     const data = await Repo.list({search});
     // return collection data
-    return completed(res, 'Teams retrieved', data);
+    return completed(res, 'Seasons retrieved', data);
   }
 
   static async find(req, res) {
@@ -33,7 +33,7 @@ class SeasonsController {
       // create season
       const season = await Repo.create(req.body);
       // return success response with season data
-      return created(res, 'Team created.', season);
+      return created(res, 'Season created.', season);
     }catch(error){
       // return error if failed to save season
       return badRequest(res, error.message);
@@ -47,7 +47,7 @@ class SeasonsController {
       // return success response with season data
       return completed(
         res,
-        'Team updated.',
+        'Season updated.',
         await Repo.findById(req.params.id)
       );
     }catch(error){
@@ -61,7 +61,7 @@ class SeasonsController {
       // delete season
       await Repo.delete(req.params.id);
       // return success response
-      return completed(res, 'Team deleted.');
+      return completed(res, 'Season deleted.');
     }catch(error){
       // return not found response
       return badRequest(res, error.message);

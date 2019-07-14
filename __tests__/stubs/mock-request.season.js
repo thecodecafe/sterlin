@@ -1,11 +1,11 @@
 const { seasonDoc } = require('./mock-data.season');
 module.exports = {
   validSeasonList: {
-    body: {}
+    query: {}
    },
    
    validSeasonListSearch: {
-    body: { search: '' }
+    query: { search: '' }
    },
 
    validSeasonFind: {

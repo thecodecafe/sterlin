@@ -1,11 +1,11 @@
 const { teamDoc, invalidLogo } = require('./mock-data.team');
 module.exports = {
   validTeamList: {
-    body: {}
+    query: {}
   },
 
   validTeamListSearch: {
-    body: { search: '' }
+    query: { search: '' }
   },
 
   validTeamFind: {

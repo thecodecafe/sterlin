@@ -9,7 +9,7 @@ const {
 class TeamController {
   static async list(req, res) {
     // get allowed params
-    const { search } = req.body;
+    const { search } = req.query;
     // retrieve collection of teams
     const data = await Repo.list({search});
     // return collection data

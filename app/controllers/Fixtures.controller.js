@@ -9,7 +9,7 @@ const {
 class FixtureController {
   static async list(req, res) {
     // retrieve collection of fixtures
-    const data = await Repo.list(req.body);
+    const data = await Repo.list(req.query);
     // return collection data
     return completed(res, 'Fixtures retrieved', data);
   }
