@@ -4,6 +4,7 @@
   "description": "Rest API",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest",
     "dev": "node_modules/.bin/nodemon index.js"
   },
