@@ -1,4 +1,5 @@
 const { body } = require('express-validator');
+const UserModel = require('../models/User.model');
 
 /**
  * Sign Up Validation
@@ -11,10 +12,17 @@ module.exports = [
     .withMessage('Name is required.'),
   // email validation
   body('email')
+    .trim()
     .exists({ checkFalsy: true })
     .withMessage('The email address is required.')
     .isEmail()
-    .withMessage('The email address is invalid.'),
+    .withMessage('The email address is invalid.')
+    .custom(async value => {
+      const count = await UserModel.count({email: value});
+      if(count > 0)
+        throw new Error('The email address is already registered.');
+      return true;
+    }),
   // password validation
   body('password')
     .exists({ checkFalsy: true })
