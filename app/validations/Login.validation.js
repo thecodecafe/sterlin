@@ -7,6 +7,8 @@ const {body} = require('express-validator');
 module.exports = [
   // email validation
   body('email')
+    .exists({checkFalsy: true})
+    .withMessage('The email address is required')
     .isEmail()
     .withMessage('The email address is invalid.'),
   // password validation
