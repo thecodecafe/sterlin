@@ -23,8 +23,7 @@ describe('<CreateFixtureValidation>', () => {
   })
 
   it('should pass', async () => {
-    mockingoose(Fixture).toReturn(0, 'count')
-    mockingoose(Team).toReturn(0, 'count')
+    mockingoose(Team).toReturn(1, 'count')
     const result = await RunValidation(validFixtureCreate, CreateValidation);
     expect(result).toBeDefined();
     expect(result.isEmpty).toBeDefined();
@@ -32,8 +31,7 @@ describe('<CreateFixtureValidation>', () => {
   })
 
   it('should fail', async () => {
-    mockingoose(Fixture).toReturn(1, 'count');
-    mockingoose(Team).toReturn(1, 'count');
+    mockingoose(Team).toReturn(0, 'count');
     const result = await RunValidation(inValidFixtureCreate, CreateValidation);
     expect(result).toBeDefined();
     expect(result.isEmpty).toBeDefined();
@@ -41,6 +39,8 @@ describe('<CreateFixtureValidation>', () => {
     expect(result.array).toBeDefined();
     expect(result.array().findIndex(item => item.param == 'season')).not.toBe(-1);
     expect(result.array().findIndex(item => item.param == 'startsAt')).not.toBe(-1);
+    expect(result.array().findIndex(item => item.param == 'homeTeam')).not.toBe(-1);
+    expect(result.array().findIndex(item => item.param == 'awayTeam')).not.toBe(-1);
   })
 
   it('should fail if invalid season is passed', async () => {
@@ -54,7 +54,6 @@ describe('<CreateFixtureValidation>', () => {
   })
 
   it('should fail for same team', async () => {
-    mockingoose(Fixture).toReturn(1, 'count');
     mockingoose(Team).toReturn(1, 'count');
     const result = await RunValidation({
       ...inValidFixtureCreate,
@@ -71,7 +70,10 @@ describe('<CreateFixtureValidation>', () => {
     expect(result.array().findIndex(item => item.param == 'awayTeam')).not.toBe(-1);
   })
 
-  afterEach(() => mockingoose(Fixture).reset());
+  afterEach(() => {
+    mockingoose(Fixture).reset();
+    mockingoose(Team).reset();
+  });
 });
 
 describe('<UpdateFixtureValidation>', () => {
@@ -81,7 +83,6 @@ describe('<UpdateFixtureValidation>', () => {
   })
 
   it('should pass', async () => {
-    mockingoose(Fixture).toReturn(0, 'count')
     mockingoose(Season).toReturn(1, 'count')
     const result = await RunValidation(validFixtureUpdate, UpdateValidation);
     expect(result).toBeDefined();
@@ -91,7 +92,6 @@ describe('<UpdateFixtureValidation>', () => {
   })
   
   it('should fail', async () => {
-    mockingoose(Fixture).toReturn(0, 'count');
     mockingoose(Season).toReturn(0, 'count');
     mockingoose(Team).toReturn(1, 'count');
     const result = await RunValidation(inValidFixtureUpdate, UpdateValidation);
