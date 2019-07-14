@@ -46,12 +46,13 @@ const createListTeamFilter = async search => {
   // check if options is passed with search term
   if (search) {
     // gete team IDs
-    const teamIds = await TeamRepo.list({
+    let teamIds = await TeamRepo.list({
       search: search, fields: ['_id']
     });
+    teamIds = teamIds.map(item => item._id);
     // filter home and away team where id matches the list of returned teams
-    filter.push({ '$or': { homeTeam: { '$in': Object.values(teamIds) } } });
-    filter.push({ '$or': { awayTeam: { '$in': Object.values(teamIds) } } });
+    filter.push({ '$or': { homeTeam: { '$in': teamIds } } });
+    filter.push({ '$or': { awayTeam: { '$in': teamIds } } });
   }
   // return filter
   return filter;
