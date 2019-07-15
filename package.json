@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest",
-    "dev": "node_modules/.bin/nodemon index.js"
+    "dev": "node_modules/.bin/nodemon index.js",
+    "docker:run": "docker run -p 3000:3000 sterlin",
+    "docker:build": "docker build -t sterlin ."
   },
   "repository": {
     "type": "git",
