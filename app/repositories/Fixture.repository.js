@@ -71,7 +71,7 @@ const createUpdateList = data => {
       updates.startsAt = data[item];
       updates.endsAt = new Date(
         new Date(data[item]).getTime() + ((60 * 100) * 1000)
-      ).toISOString();
+      ).toUTCString();
       return;
     }
     updates[item] = data[item];
@@ -125,7 +125,7 @@ class FixtureRepository {
         season, homeTeam, awayTeam, startsAt,
         endsAt: new Date(
           new Date(startsAt).getTime() + ((60 * 100) * 1000)
-        ).toISOString()
+        ).toUTCString()
       });
       // save fixture
       fixture = await fixture.save();
