@@ -2,15 +2,31 @@ const Model = require('../models/Season.model');
 const FixtureRepo = require('./Fixture.repository');
 const slugify = require('slugify');
 
+const createSearchFilter = search => {
+  if(!search || search.trim().length < 1) return [];
+  const filter = [
+    {slug: {'$regex': `.*${search.toLowerCase()}.*`}},
+    {name: {'$regex': `.*${search}.*`}}
+  ];
+  // add extra steps if term has more words
+  if(search.split().length > 1){
+    const head = search.substr(0, search.length / 2);
+    const tail = search.substr(search.length / 2, search.length);
+    filter.push({slug: {'$regex': `.*${head.toLowerCase()}.*`}});
+    filter.push({name: {'$regex': `.*${head}.*`}});
+    filter.push({slug: {'$regex': `.*${tail.toLowerCase()}.*`}});
+    filter.push({name: {'$regex': `.*${tail}.*`}});
+  }
+  return filter;
+};
+
 class SeasonRepository {
   static async list(options = {}) {
     // get seasons
     let query = Model.find();
+    const searchFilter = createSearchFilter(options.search);
     // ass name filter if search is present
-    if(options.search && options.search.trim().length > 0)
-      query = query.and(
-        [{'$or': [{name: {'$regex': `.*${options.search}.*`}}]}]
-      );
+    if(searchFilter.length > 0) query = query.and([{'$or': searchFilter}]);
     // execute query
     return await query.exec();
   }

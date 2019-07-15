@@ -2,24 +2,38 @@ const Model = require('../models/Team.model');
 const { url } = require('../../configs/app');
 const slugify = require('slugify');
 
+const createSearchFilter = search => {
+  if(!search || search.trim().length < 1) return [];
+  const filter = [
+    {slug: {'$regex': `.*${search.toLowerCase()}.*`}},
+    {name: {'$regex': `.*${search}.*`}},
+    {stadium: {'$regex': `.*${search}.*`}},
+    {slug: {'$regex': `.*${slugify(search)}.*`}}
+  ];
+  // add extra steps if term has more words
+  if(search.split().length > 1){
+    const head = search.substr(0, search.length / 2);
+    const tail = search.substr(search.length / 2, search.length);
+    filter.push({slug: {'$regex': `.*${head.toLowerCase()}.*`}});
+    filter.push({name: {'$regex': `.*${head}.*`}});
+    filter.push({stadium: {'$regex': `.*${head}.*`}});
+    filter.push({slug: {'$regex': `.*${tail.toLowerCase()}.*`}});
+    filter.push({name: {'$regex': `.*${tail}.*`}});
+    filter.push({stadium: {'$regex': `.*${tail}.*`}});
+  }
+  return filter;
+};
+
 class TeamRepository {
   static async list(options) {
     let {search, fields} = options || {};
+    const searchFilter = createSearchFilter(search);
     // set fields, all by default
     fields = Array.isArray(fields) ? fields.join(' ') : null;
-    
     // get teams
     let query = Model.find({}, fields);
-
     // add search filter is any is psecified
-    if(search && search.trim().length > 0)
-      query = query.and([
-        {'$or': [
-          {name: {'$regex': `.*${search}.*`}},
-          {stadium: {'$regex': `.*${search}.*`}}
-        ]}
-      ]);
-
+    if(searchFilter.length > 0) query = query.and([{'$or': searchFilter}]);
     // execute query
     return await query.exec();
   }
