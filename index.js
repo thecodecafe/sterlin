@@ -2,9 +2,8 @@ require('./configs/dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { mongoURI } = require('./configs/app');
+const { mongoURI, port } = require('./configs/app');
 const { notFound } = require('./utils/Response.util');
-const port = process.env.PORT || 3000;
 
 // initialize app
 const app = express();
