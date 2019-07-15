@@ -78,17 +78,23 @@ const createUpdateList = data => {
 class FixtureRepository {
   static async list(options) {
     const { from, to, search, status } = options || {};
+    const searchFilter = await createListTeamFilter(search);
+    const dateFilter = status
+      ? createListStatusFilter(status)
+      : createListDateFilter({ from, to });
+
     // get fixtures
-    return await Model.find()
+    let query = Model.find()
       .populate('season')
       .populate('homeTeam')
-      .populate('awayTeam')
-      .and(
-        status
-          ? createListStatusFilter(status)
-          : createListDateFilter({ from, to })
-      )
-      .and(await createListTeamFilter(search));
+      .populate('awayTeam');
+
+    // add filters if set
+    if(dateFilter.length > 0) query = query.and(dateFilter);
+    if(searchFilter.length > 0) query = query.and(searchFilter);
+
+    // execute query
+    return await query.exec();
   }
 
   static async findById(id) {

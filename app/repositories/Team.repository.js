@@ -6,12 +6,19 @@ class TeamRepository {
     let {search, fields} = options || {};
     // set fields, all by default
     fields = Array.isArray(fields) ? fields.join(' ') : null;
+    
     // get teams
-    return await Model.find({}, fields)
-      .and(search ? [
+    let query = Model.find({}, fields);
+
+    // add search filter is any is psecified
+    if(search)
+      query = query.and([
         {'$or': {name: {'$regex': `.*${search}.*`}}},
         {'$or': {stadium: {'$regex': `.*${search}.*`}}}
-      ] : []);
+      ]);
+
+    // execute query
+    return await query.exec();
   }
 
   static async findById(id) {
