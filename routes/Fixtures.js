@@ -21,6 +21,16 @@ router.get('/:id',
 );
 
 /**
+ * Single Fixture
+ */
+router.post('/:id/generate-link',
+  JWTCheckMiddleware,
+  AuthMiddleware.authenticate('jwt', {session: false}),
+  GuardedMiddleware(['admin']),
+  TryCatch(FixturesController.generateLink)
+);
+
+/**
  * Create Fixture
  */
 router.post('/',
