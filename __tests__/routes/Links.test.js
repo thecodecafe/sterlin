@@ -89,7 +89,7 @@ describe('<LinkRoute.Verify>', () => {
   it('should return the fixture associated with the link', () => {
     mockingoose(FixtureModel).toReturn(newfixtureDoc, 'findOne');
     return request(app)
-      .get('/l/' + encrypto(newfixtureDoc._id))
+      .get('/l/' + encodeURIComponent(encrypto(newfixtureDoc._id)))
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
@@ -136,7 +136,7 @@ describe('<LinkRoute.Verify>', () => {
   it('should fail if fixture was not found', () => {
     mockingoose(FixtureModel).toReturn(null, 'findOne');
     return request(app)
-      .post('/l/' + encrypto(newfixtureDoc._id))
+      .post('/l/' + encodeURIComponent(encrypto(newfixtureDoc._id)))
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
