@@ -4,10 +4,12 @@ const FixtureRepo = require('./Fixture.repository');
 class SeasonRepository {
   static async list(options = {}) {
     // get seasons
-    return await Model.find()
-      .and(options.search ? [
-        {'$or': {name: {'$regex': `.*${options.search}.*`}}}
-      ] : []);
+    let query = Model.find();
+    // ass name filter if search is present
+    if(options.search)
+      query = query.and([{'$or': {name: {'$regex': `.*${options.search}.*`}}}]);
+    // execute query
+    return await query.exec();
   }
 
   static async findById(id) {
