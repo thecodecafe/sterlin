@@ -43,7 +43,7 @@ module.exports = {
    * The port our aplication will be running form
    * @var Number
    */
-  port: process.env.APP_PORT,
+  port: process.env.PORT || process.env.APP_PORT,
 
   /**
    * Mongo DB URI
