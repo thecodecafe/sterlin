@@ -11,7 +11,7 @@ class TeamRepository {
     let query = Model.find({}, fields);
 
     // add search filter is any is psecified
-    if(search)
+    if(search && search.trim().length > 0)
       query = query.and([
         {'$or': [
           {name: {'$regex': `.*${search}.*`}},

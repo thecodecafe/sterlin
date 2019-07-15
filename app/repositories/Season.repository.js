@@ -6,7 +6,7 @@ class SeasonRepository {
     // get seasons
     let query = Model.find();
     // ass name filter if search is present
-    if(options.search)
+    if(options.search && options.search.trim().length > 0)
       query = query.and(
         [{'$or': [{name: {'$regex': `.*${options.search}.*`}}]}]
       );
