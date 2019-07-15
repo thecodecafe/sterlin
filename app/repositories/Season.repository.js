@@ -1,5 +1,6 @@
 const Model = require('../models/Season.model');
 const FixtureRepo = require('./Fixture.repository');
+const slugify = require('slugify');
 
 class SeasonRepository {
   static async list(options = {}) {
@@ -30,6 +31,7 @@ class SeasonRepository {
       // instantiate new season
       let season = new Model({
         name,
+        slug: slugify(name.toLowerCase()),
         startDate,
         endDate
       });
@@ -49,19 +51,19 @@ class SeasonRepository {
     // fail if an id is not passed
     if(!id)
       return Promise.reject(new Error('Can\t update season without an ID'));
-
     // updates to perform
     const update = {};
     // add updates when available
-    if(name) update.name = name;
+    if(name) {
+      update.name = name;
+      update.slug = slugify(name.toLowerCase());
+    }
     if(startDate) update.startDate = startDate;
     if(endDate) update.endDate = endDate;
-
     // find season by it's ID
     let season = await Model.findOne({_id: id});
     // reject promise if no season was found
     if(!season) return Promise.reject(new Error('Season not found'));
-
     // update collection with the given id
     Object.keys(update).forEach(key => {
       season[key] = update[key];

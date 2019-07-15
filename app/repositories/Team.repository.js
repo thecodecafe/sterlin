@@ -1,5 +1,6 @@
 const Model = require('../models/Team.model');
 const { url } = require('../../configs/app');
+const slugify = require('slugify');
 
 class TeamRepository {
   static async list(options) {
@@ -42,6 +43,7 @@ class TeamRepository {
       // instantiate new team
       let team = new Model({
         name,
+        slug: slugify(name.toLowerCase()),
         stadium,
         logo: logo ? logo : null
       });
@@ -66,17 +68,17 @@ class TeamRepository {
       return Promise.reject(new Error('Can\t update team without an ID'));
     // updates to perform
     const update = {};
-
     // add updates when available
-    if(name) update.name = name;
+    if(name) {
+      update.name = name;
+      update.slug = slugify(name.toLowerCase());
+    }
     if(logo) update.logo = logo;
     if(stadium) update.stadium = stadium;
-
     // find team by it's ID
     let team = await Model.findOne({_id: id});
     // reject promise if no team was found
     if(!team) return Promise.reject(new Error('Team not found'));
-
     // update collection with the given id
     Object.keys(update).forEach(key => {
       team[key] = update[key];

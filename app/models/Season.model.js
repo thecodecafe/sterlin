@@ -5,8 +5,12 @@ const SeasonSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'The season\'s name is required.'],
-    unique: true,
-    index: true
+    unique: true
+  },
+  slug: {
+    type: String,
+    index: true,
+    default: ''
   },
   startDate: {
     type: Date,
