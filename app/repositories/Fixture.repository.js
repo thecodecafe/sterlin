@@ -23,15 +23,15 @@ const createListStatusFilter = status => {
   const filter = [];
   // pending fixtures
   if (status === 'pending')
-    filter.push({ startsAt: { '$gte': new Date().toUTCString() } });
+    filter.push({ startsAt: { '$gte': new Date().toISOString() } });
   // ongoing fixtures
   if (status === 'ongoing') {
-    filter.push({ startsAt: { '$lte': new Date().toUTCString() } });
-    filter.push({ endsAt: { '$gt': new Date().toUTCString() } });
+    filter.push({ startsAt: { '$lte': new Date().toISOString() } });
+    filter.push({ endsAt: { '$gt': new Date().toISOString() } });
   }
   // completed fixtures
   if (status === 'completed')
-    filter.push({ sendsAt: { '$gt': new Date().toUTCString() } });
+    filter.push({ endsAt: { '$lte': new Date().toISOString() } });
   // retun filter result
   return filter;
 };
@@ -51,10 +51,12 @@ const createListTeamFilter = async search => {
     });
     teamIds = teamIds.map(item => item._id);
     // filter home and away team where id matches the list of returned teams
-    filter.push({ '$or': [
-      { homeTeam: { '$in': teamIds } },
-      { awayTeam: { '$in': teamIds } }
-    ] });
+    filter.push({
+      '$or': [
+        { homeTeam: { '$in': teamIds } },
+        { awayTeam: { '$in': teamIds } }
+      ]
+    });
   }
   // return filter
   return filter;
@@ -69,7 +71,7 @@ const createUpdateList = data => {
       updates.startsAt = data[item];
       updates.endsAt = new Date(
         new Date(data[item]).getTime() + ((60 * 100) * 1000)
-      ).toUTCString();
+      ).toISOString();
       return;
     }
     updates[item] = data[item];
@@ -92,8 +94,8 @@ class FixtureRepository {
       .populate('awayTeam');
 
     // add filters if set
-    if(dateFilter.length > 0) query = query.and(dateFilter);
-    if(searchFilter.length > 0) query = query.and(searchFilter);
+    if (dateFilter.length > 0) query = query.and(dateFilter);
+    if (searchFilter.length > 0) query = query.and(searchFilter);
 
     // execute query
     return await query.exec();
@@ -101,7 +103,7 @@ class FixtureRepository {
 
   static async findById(id) {
     // fail if an id is not passed
-    if(!id)
+    if (!id)
       return Promise.reject(new Error('Can\t find fixture without an ID'));
 
     // find fixture by it's ID
@@ -123,17 +125,16 @@ class FixtureRepository {
         season, homeTeam, awayTeam, startsAt,
         endsAt: new Date(
           new Date(startsAt).getTime() + ((60 * 100) * 1000)
-        ).toUTCString()
+        ).toISOString()
       });
-
       // save fixture
       fixture = await fixture.save();
       // get fixture info
       await fixture
         .populate('season')
         .populate('homeTeam')
-        .populate('awayTeam');
-
+        .populate('awayTeam')
+        .execPopulate();
       // resolve with fixture info and fixtures link
       return Promise.resolve(fixture);
     } catch (error) {
@@ -144,20 +145,20 @@ class FixtureRepository {
 
   static async update(id, data) {
     // fail if an id is not passed
-    if(!id)
+    if (!id)
       return Promise.reject(new Error('Can\t update fixture without an ID'));
 
     // create the updates list
     const update = createUpdateList(data);
 
     // find fixture by it's ID
-    let fixture = await Model.findOne({_id: id});
+    let fixture = await Model.findOne({ _id: id });
 
     // reject promise if no fixture was found
-    if(!fixture) return Promise.reject(new Error('Fixture not found'));
+    if (!fixture) return Promise.reject(new Error('Fixture not found'));
 
     // no need to update if nothing was passed
-    if(Object.keys(update).length < 1) return fixture;
+    if (Object.keys(update).length < 1) return fixture;
 
     // update collection with the given id
     Object.keys(update).forEach(key => fixture[key] = update[key]);
@@ -170,17 +171,17 @@ class FixtureRepository {
 
   static async delete(id) {
     // fail if an id is not passed
-    if(!id)
+    if (!id)
       return Promise.reject(new Error('Can\t delete fixture without an ID'));
 
     // find fixture by it's ID
-    const fixture = await Model.findOne({_id: id});
+    const fixture = await Model.findOne({ _id: id });
 
     // reject promise if no fixture was found
-    if(!fixture) return Promise.reject(new Error('Fixture not found'));
+    if (!fixture) return Promise.reject(new Error('Fixture not found'));
 
     // delete fixture
-    await Model.deleteOne({_id: id});
+    await Model.deleteOne({ _id: id });
 
     // resolve with the count for the number of items deleted
     return Promise.resolve(true);

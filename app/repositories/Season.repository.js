@@ -1,15 +1,32 @@
 const Model = require('../models/Season.model');
 const FixtureRepo = require('./Fixture.repository');
+const slugify = require('slugify');
+
+const createSearchFilter = search => {
+  if(!search || search.trim().length < 1) return [];
+  const filter = [
+    {slug: {'$regex': `.*${search.toLowerCase()}.*`}},
+    {name: {'$regex': `.*${search}.*`}}
+  ];
+  // add extra steps if term has more words
+  if(search.split().length > 1){
+    const head = search.substr(0, search.length / 2);
+    const tail = search.substr(search.length / 2, search.length);
+    filter.push({slug: {'$regex': `.*${head.toLowerCase()}.*`}});
+    filter.push({name: {'$regex': `.*${head}.*`}});
+    filter.push({slug: {'$regex': `.*${tail.toLowerCase()}.*`}});
+    filter.push({name: {'$regex': `.*${tail}.*`}});
+  }
+  return filter;
+};
 
 class SeasonRepository {
   static async list(options = {}) {
     // get seasons
     let query = Model.find();
+    const searchFilter = createSearchFilter(options.search);
     // ass name filter if search is present
-    if(options.search && options.search.trim().length > 0)
-      query = query.and(
-        [{'$or': [{name: {'$regex': `.*${options.search}.*`}}]}]
-      );
+    if(searchFilter.length > 0) query = query.and([{'$or': searchFilter}]);
     // execute query
     return await query.exec();
   }
@@ -30,6 +47,7 @@ class SeasonRepository {
       // instantiate new season
       let season = new Model({
         name,
+        slug: slugify(name.toLowerCase()),
         startDate,
         endDate
       });
@@ -49,19 +67,19 @@ class SeasonRepository {
     // fail if an id is not passed
     if(!id)
       return Promise.reject(new Error('Can\t update season without an ID'));
-
     // updates to perform
     const update = {};
     // add updates when available
-    if(name) update.name = name;
+    if(name) {
+      update.name = name;
+      update.slug = slugify(name.toLowerCase());
+    }
     if(startDate) update.startDate = startDate;
     if(endDate) update.endDate = endDate;
-
     // find season by it's ID
     let season = await Model.findOne({_id: id});
     // reject promise if no season was found
     if(!season) return Promise.reject(new Error('Season not found'));
-
     // update collection with the given id
     Object.keys(update).forEach(key => {
       season[key] = update[key];

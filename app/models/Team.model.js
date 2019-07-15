@@ -6,8 +6,12 @@ const TeamSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'The team\'s name is required.'],
-    unique: true,
-    index: true
+    unique: true
+  },
+  slug: {
+    type: String,
+    index: true,
+    default: ''
   },
   logo: {
     type: String,

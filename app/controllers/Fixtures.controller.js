@@ -13,7 +13,9 @@ class FixtureController {
     // retrieve collection of fixtures
     const data = await Repo.list(req.query);
     // return collection data
-    return completed(res, 'Fixtures retrieved', data);
+    return completed(res, 'Fixtures retrieved', data, {
+      result: data.length
+    });
   }
 
   static async find(req, res) {
@@ -34,7 +36,7 @@ class FixtureController {
       const fixture = await Repo.findById(req.params.id);
       // encrypt ID and return in a URL
       return created(res, 'Link generated.', {
-        link: `${url}/li/${encrypto(fixture._id)}`
+        link: `${url}/l/${encodeURIComponent(encrypto(fixture._id))}`
       });
     } catch (error) {
       // return not found response.

@@ -9,7 +9,7 @@ const { userDoc } = require('../stubs/mock-date.user');
 const { newfixtureDoc } = require('../stubs/mock-data.fixture');
 const { createToken } = require('../../utils/Token.util');
 const { encrypto } = require('../../utils/Encryption.util');
-app.use('/', require('../../routes/Links'));
+app.use('/l', require('../../routes/Links'));
 app.use('/fixtures', require('../../routes/Fixtures'));
 app.use((req, res) => {
   return res.status(404).json({success: false, message: 'not found for invalid route'});
@@ -89,7 +89,7 @@ describe('<LinkRoute.Verify>', () => {
   it('should return the fixture associated with the link', () => {
     mockingoose(FixtureModel).toReturn(newfixtureDoc, 'findOne');
     return request(app)
-      .get('/li/' + encrypto(newfixtureDoc._id))
+      .get('/l/' + encrypto(newfixtureDoc._id))
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
@@ -107,7 +107,7 @@ describe('<LinkRoute.Verify>', () => {
   it('should return 404 if code is not passed', () => {
     mockingoose(FixtureModel).toReturn(null, 'findOne');
     return request(app)
-      .get('/li')
+      .get('/l')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
@@ -121,7 +121,7 @@ describe('<LinkRoute.Verify>', () => {
 
   it('should fail if code cannot be decrypted', () => {
     return request(app)
-      .get('/li/code')
+      .get('/l/code')
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
@@ -136,7 +136,7 @@ describe('<LinkRoute.Verify>', () => {
   it('should fail if fixture was not found', () => {
     mockingoose(FixtureModel).toReturn(null, 'findOne');
     return request(app)
-      .post('/li/' + encrypto(newfixtureDoc._id))
+      .post('/l/' + encrypto(newfixtureDoc._id))
       .set('Accept', 'application/json')
       .set('Content-Type', 'application/json')
       .expect('Content-Type', /json/)
