@@ -34,7 +34,7 @@ class FixtureController {
       const fixture = await Repo.findById(req.params.id);
       // encrypt ID and return in a URL
       return created(res, 'Link generated.', {
-        link: `${url}/li/${encrypto(fixture._id)}`
+        link: `${url}/l/${encodeURIComponent(encrypto(fixture._id))}`
       });
     } catch (error) {
       // return not found response.
