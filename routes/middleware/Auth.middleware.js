@@ -16,7 +16,7 @@ passport.use(new JWTStrategy(
   },
   async (payload, done) => {
     // fund user bearing the user id on the payload
-    const user = await User.findOne({ id: payload.id });
+    const user = await User.findOne({ _id: payload.id });
 
     // check if the user does not exist
     if (!user) return done(new Error('invalid token'), false);
