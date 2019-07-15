@@ -3,7 +3,9 @@ const mockingoose = require('mockingoose').default;
 const Repo = require('../../app/repositories/Fixture.repository');
 const Fixture = require('../../app/models/Fixture.model');
 const Team = require('../../app/models/Team.model');
+const Season = require('../../app/models/Season.model');
 const { fixtureDoc, newfixtureDoc, updatedfixtureDoc } = require('../stubs/mock-data.fixture');
+const { seasonDoc } = require('../stubs/mock-data.season');
 
 describe('<FixtureRepository.list>', () => {
   // reseet mockinggoose per test
@@ -167,6 +169,7 @@ describe('<FixtureRepository.create>', () => {
   beforeEach(() => mockingoose(Fixture).toReturn(newfixtureDoc, 'save'));
 
   it('should return a created fixture', async (done) => {
+    mockingoose(Season).toReturn(seasonDoc, 'findOne');
     // create new fixture
     const fixture = await Repo.create(newfixtureDoc);
     const endsAt = new Date(fixtureDoc.startsAt).getTime() + (60000 * 100)
@@ -207,6 +210,10 @@ describe('<FixtureRepository.create>', () => {
       done();
     }
   });
+
+  afterEach(() => {
+    mockingoose(Season).reset();
+  })
 });
 
 

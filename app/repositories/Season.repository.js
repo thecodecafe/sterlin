@@ -47,7 +47,7 @@ class SeasonRepository {
       // instantiate new season
       let season = new Model({
         name,
-        slug: slugify(name.toLowerCase()),
+        slug: slugify(String(name).toLowerCase()),
         startDate,
         endDate
       });

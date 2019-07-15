@@ -3,10 +3,12 @@ const mockingoose = require('mockingoose').default;
 const Controller  = require('../../app/controllers/Fixtures.controller');
 const Fixture = require('../../app/models/Fixture.model');
 const Team = require('../../app/models/Team.model');
+const Season = require('../../app/models/Season.model');
 const httpMocks = require('node-mocks-http');
 const { encrypto, decrypto } = require('../../utils/Encryption.util');
 const { newfixtureDoc } = require('../stubs/mock-data.fixture');
 const { teamDoc } = require('../stubs/mock-data.team');
+const { seasonDoc } = require('../stubs/mock-data.season');
 const { 
   fixtureList,
   fixtureListSearch,
@@ -191,7 +193,7 @@ describe('<FixtureController.List>', () => {
   });
 });
 
-describe('<Searchcontroller.Find>', () => {
+describe('<FixturesController.Find>', () => {
   beforeEach(() => mockingoose(Fixture).reset());
 
   it('should return a fixture', async () => {
@@ -260,7 +262,7 @@ describe('<Searchcontroller.Find>', () => {
   });
 });
 
-describe('<Searchcontroller.Links>', () => {
+describe('<FixturesController.Links>', () => {
   beforeEach(() => mockingoose(Fixture).reset());
   it('should return a generated link', async () => {
     mockingoose(Fixture).toReturn(newfixtureDoc, 'findOne');
@@ -367,11 +369,13 @@ describe('<Searchcontroller.Links>', () => {
   });
 });
 
-describe('<Searchcontroller.Create>', () => {
+describe('<FixturesController.Create>', () => {
   beforeEach(() => mockingoose(Fixture).reset());
 
   it('should return a created fixture', async () => {
     mockingoose(Fixture).toReturn(newfixtureDoc, 'save');
+    mockingoose(Season).toReturn(seasonDoc, 'findOne');
+    mockingoose(Team).toReturn(teamDoc, 'findOne');
     // create mock response
     const response = httpMocks.createResponse();
     // make request
@@ -415,7 +419,7 @@ describe('<Searchcontroller.Create>', () => {
   });
 });
 
-describe('<Searchcontroller.Update>', () => {
+describe('<FixturesController.Update>', () => {
   beforeEach(() => mockingoose(Fixture).reset());
 
   it('should return an updated fixture', async () => {
@@ -464,7 +468,7 @@ describe('<Searchcontroller.Update>', () => {
   });
 });
 
-describe('<Searchcontroller.Delete>', () => {
+describe('<FixturesController.Delete>', () => {
   beforeEach(() => mockingoose(Fixture).reset());
 
   it('should return an updated fixture', async () => {

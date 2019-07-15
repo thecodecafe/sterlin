@@ -46,7 +46,7 @@ class FixtureController {
 
   static async verifyLink(req, res) {
     try {
-      const code = decrypto(req.params.code);
+      const code = decrypto(decodeURIComponent(req.params.code));
       // throw error if code is invalid
       if(!code) return badRequest(res, 'Invalid link.');
       // find fixture by the given ID
