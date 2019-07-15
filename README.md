@@ -1,8 +1,7 @@
 # Sterlin
 Mock Premier League API for fetching and managing seasons, teams, and fixtures.
 
-[Documentation](https://documenter.getpostman.com/view/8137561/SVSHtVvn)
-[Live API](https://strlin.herokuapp.com/)
+[Documentation](https://documenter.getpostman.com/view/8137561/SVSHtVvn) | [Live API](https://strlin.herokuapp.com/)
 
 ## Setup
 To setup for development please follow the steps bellow.
