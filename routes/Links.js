@@ -6,6 +6,6 @@ const TryCatch = require('../utils/TryCatch.utils');
 /**
  * Fixture List
  */
-router.get('/:code', TryCatch(FixturesController.verifyLink));
+router.get('/li/:code', TryCatch(FixturesController.verifyLink));
 
 module.exports = router;

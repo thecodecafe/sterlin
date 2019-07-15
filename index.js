@@ -22,7 +22,7 @@ app.use('/auth', require("./routes/Auth"));
 app.use('/seasons', require("./routes/Seasons"));
 app.use('/teams', require("./routes/Teams"));
 app.use('/fixtures', require("./routes/Fixtures"));
-app.use('/li', require("./routes/Links"));
+app.use('/', require("./routes/Links"));
 
 app.use((req, res) => {
   return notFound(

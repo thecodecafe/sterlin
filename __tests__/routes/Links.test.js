@@ -9,7 +9,7 @@ const { userDoc } = require('../stubs/mock-date.user');
 const { newfixtureDoc } = require('../stubs/mock-data.fixture');
 const { createToken } = require('../../utils/Token.util');
 const { encrypto } = require('../../utils/Encryption.util');
-app.use('/li', require('../../routes/Links'));
+app.use('/', require('../../routes/Links'));
 app.use('/fixtures', require('../../routes/Fixtures'));
 app.use((req, res) => {
   return res.status(404).json({success: false, message: 'not found for invalid route'});
