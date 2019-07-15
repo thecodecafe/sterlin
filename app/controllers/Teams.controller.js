@@ -13,7 +13,9 @@ class TeamController {
     // retrieve collection of teams
     const data = await Repo.list({search});
     // return collection data
-    return completed(res, 'Teams retrieved', data);
+    return completed(res, 'Teams retrieved', data, {
+      result: data.length
+    });
   }
 
   static async find(req, res) {

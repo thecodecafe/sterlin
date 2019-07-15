@@ -13,7 +13,9 @@ class FixtureController {
     // retrieve collection of fixtures
     const data = await Repo.list(req.query);
     // return collection data
-    return completed(res, 'Fixtures retrieved', data);
+    return completed(res, 'Fixtures retrieved', data, {
+      result: data.length
+    });
   }
 
   static async find(req, res) {

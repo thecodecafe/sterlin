@@ -13,7 +13,9 @@ class SeasonsController {
     // retrieve collection of seasons
     const data = await Repo.list({search});
     // return collection data
-    return completed(res, 'Seasons retrieved', data);
+    return completed(res, 'Seasons retrieved', data, {
+      result: data.length
+    });
   }
 
   static async find(req, res) {
