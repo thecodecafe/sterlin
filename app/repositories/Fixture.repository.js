@@ -23,15 +23,15 @@ const createListStatusFilter = status => {
   const filter = [];
   // pending fixtures
   if (status === 'pending')
-    filter.push({ startsAt: { '$gte': new Date().toUTCString() } });
+    filter.push({ startsAt: { '$gte': new Date().toISOString() } });
   // ongoing fixtures
   if (status === 'ongoing') {
-    filter.push({ startsAt: { '$lte': new Date().toUTCString() } });
-    filter.push({ endsAt: { '$gt': new Date().toUTCString() } });
+    filter.push({ startsAt: { '$lte': new Date().toISOString() } });
+    filter.push({ endsAt: { '$gt': new Date().toISOString() } });
   }
   // completed fixtures
   if (status === 'completed')
-    filter.push({ sendsAt: { '$gt': new Date().toUTCString() } });
+    filter.push({ endsAt: { '$lte': new Date().toISOString() } });
   // retun filter result
   return filter;
 };
