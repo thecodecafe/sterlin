@@ -57,7 +57,7 @@ class TeamRepository {
       // instantiate new team
       let team = new Model({
         name,
-        slug: slugify(name.toLowerCase()),
+        slug: slugify(String(name).toLowerCase()),
         stadium,
         logo: logo ? logo : null
       });
