@@ -36,7 +36,7 @@ module.exports = {
    * errors for different environments
    * @var Boolean
    */
-  debug: process.env.APP_DEBUG,
+  debug: process.env.APP_DEBUG || false,
 
   /**
    * Application Port
