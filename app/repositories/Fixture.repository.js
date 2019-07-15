@@ -51,8 +51,10 @@ const createListTeamFilter = async search => {
     });
     teamIds = teamIds.map(item => item._id);
     // filter home and away team where id matches the list of returned teams
-    filter.push({ '$or': { homeTeam: { '$in': teamIds } } });
-    filter.push({ '$or': { awayTeam: { '$in': teamIds } } });
+    filter.push({ '$or': [
+      { homeTeam: { '$in': teamIds } },
+      { awayTeam: { '$in': teamIds } }
+    ] });
   }
   // return filter
   return filter;

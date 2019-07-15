@@ -13,8 +13,10 @@ class TeamRepository {
     // add search filter is any is psecified
     if(search)
       query = query.and([
-        {'$or': {name: {'$regex': `.*${search}.*`}}},
-        {'$or': {stadium: {'$regex': `.*${search}.*`}}}
+        {'$or': [
+          {name: {'$regex': `.*${search}.*`}},
+          {stadium: {'$regex': `.*${search}.*`}}
+        ]}
       ]);
 
     // execute query
