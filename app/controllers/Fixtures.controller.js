@@ -1,4 +1,6 @@
 const Repo = require('../repositories/Fixture.repository');
+const { url } = require('../../configs/app');
+const { encrypto, decrypto } = require('../../utils/Encryption.util');
 const {
   created,
   completed,
@@ -20,6 +22,35 @@ class FixtureController {
       const fixture = await Repo.findById(req.params.id);
       // return a response with the found fixture
       return completed(res, 'Found fixture.', fixture);
+    } catch (error) {
+      // return not found response.
+      return notFound(res, error.message);
+    }
+  }
+
+  static async generateLink(req, res) {
+    try {
+      // find fixture by the given ID
+      const fixture = await Repo.findById(req.params.id);
+      // encrypt ID and return in a URL
+      return created(res, 'Link generated.', {
+        link: `${url}/li/${encrypto(fixture._id)}`
+      });
+    } catch (error) {
+      // return not found response.
+      return notFound(res, error.message);
+    }
+  }
+
+  static async verifyLink(req, res) {
+    try {
+      const code = decrypto(req.params.code);
+      // throw error if code is invalid
+      if(!code) return badRequest(res, 'Invalid link.');
+      // find fixture by the given ID
+      const fixture = await Repo.findById(code);
+      // encrypt ID and return in a URL
+      return completed(res, 'Retrieved fixtrue.', fixture);
     } catch (error) {
       // return not found response.
       return notFound(res, error.message);
