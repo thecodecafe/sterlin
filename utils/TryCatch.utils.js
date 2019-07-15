@@ -1,3 +1,4 @@
+const {debug} = require('../configs/app');
 const { internalError } = require('./Response.util');
 /**
  * @description Wraps a controller function in a try-catch block
@@ -9,7 +10,10 @@ module.exports = controller => async (req, res) => {
   try {
     await controller(req, res);
   } catch (error) {
-    return internalError(res, 'Whoops, something went wrong!');
+    return internalError(
+      res,
+      debug ? error.message : 'Whoops, something went wrong!'
+    );
   }
   return true;
 };
